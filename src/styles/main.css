@@ -1,0 +1,14 @@
+body {
+    font-family: sans-serif;
+}
+
+.board {
+    display: flex;
+    gap: 16px;
+}
+
+.column {
+    background: #f4f4f4;
+    padding: 12px;
+    width: 250px;
+}
