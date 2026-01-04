@@ -1,3 +1,3 @@
 export interface Board {
-    columns: string[];
+  columns: string[];
 }

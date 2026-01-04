@@ -1,18 +1,22 @@
-import { BoardStore } from '../../core/store/BoardStore';
-import { ColumnView } from '../Column/ColumnView';
+import { BoardStore } from "../../core/store/BoardStore";
+import { ColumnView } from "../Column/ColumnView";
 
 export class BoardView {
-    constructor(private store: BoardStore) {}
+  private root = document.createElement("div");
+  constructor(private store: BoardStore) {
+    this.root.className = "board";
 
-    render(): HTMLElement {
-        const board = document.createElement('div');
-        board.className = 'board';
+    this.store.events.subscribe(() => this.render());
+  }
 
-        this.store.getColumns().forEach(column => {
-            const view = new ColumnView(column, this.store);
-            board.appendChild(view.render());
-        });
+  render(): HTMLElement {
+    this.root.innerHTML = "";
 
-        return board;
-    }
+    this.store.getColumns().forEach((column) => {
+      const view = new ColumnView(column, this.store);
+      this.root.append(view.render());
+    });
+
+    return this.root;
+  }
 }
