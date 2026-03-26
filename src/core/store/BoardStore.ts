@@ -41,4 +41,26 @@ export class BoardStore {
 
     this.events.emit();
   }
+
+  deleteTask(columnId: string, taskId: string) {
+    this.tasks.delete(taskId);
+
+    const column = this.columns.get(columnId);
+
+    if (!column) return;
+
+    column.taskIds = column.taskIds.filter((id) => id !== taskId);
+
+    this.events.emit();
+  }
+
+  updateTask(taskId: string, newValue: string) {
+    const task = this.tasks.get(taskId);
+
+    if (!task) return;
+
+    task.title = newValue;
+
+    this.events.emit();
+  }
 }

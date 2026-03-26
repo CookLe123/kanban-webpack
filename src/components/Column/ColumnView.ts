@@ -26,7 +26,7 @@ export class ColumnView {
     this.column.taskIds.forEach((taskId) => {
       const task = this.store.getTask(taskId);
       if (!!task) {
-        const view = new TaskView(task, this.store);
+        const view = new TaskView(task, this.store,this.column.id);
         el.append(view.render());
       }
     });
