@@ -23,9 +23,8 @@ export class TaskView {
       const save = () => {
         const newValue = input.value;
 
-        this.store.updateTask(this.task.id, newValue);
+        if (!!newValue) this.store.updateTask(this.task.id, newValue);
 
-        title.textContent = newValue;
         input.replaceWith(title);
       };
 

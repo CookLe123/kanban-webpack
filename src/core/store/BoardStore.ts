@@ -63,4 +63,26 @@ export class BoardStore {
 
     this.events.emit();
   }
+
+  addColumn() {
+    const newColumnId = uuid();
+
+    this.columns.set(newColumnId, {
+      id: newColumnId,
+      taskIds: [],
+      title: "Edit me",
+    });
+
+    this.events.emit();
+  }
+
+  updateColumn(columnId: string, newValue: string) {
+    const column = this.columns.get(columnId);
+
+    if (!column) return;
+
+    column.title = newValue;
+
+    this.events.emit();
+  }
 }

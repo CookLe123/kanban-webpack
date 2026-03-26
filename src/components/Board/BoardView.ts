@@ -17,6 +17,14 @@ export class BoardView {
       this.root.append(view.render());
     });
 
+    const addColumn = document.createElement("button");
+    addColumn.textContent = "+ Column";
+    addColumn.addEventListener('click',()=>{
+      this.store.addColumn()
+    })
+
+    this.root.append(addColumn);
+
     return this.root;
   }
 }

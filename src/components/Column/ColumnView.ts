@@ -15,21 +15,44 @@ export class ColumnView {
     const title = document.createElement("h3");
     title.textContent = this.column.title;
 
+    title.addEventListener("dblclick", () => {
+      const input = document.createElement("input");
+
+      title.replaceWith(input);
+      input.focus();
+
+      const save = () => {
+        const value = input.value;
+
+        if (!!value) this.store.updateColumn(this.column.id, input.value);
+        
+        input.replaceWith(title);
+      };
+
+      input.addEventListener("blur", () => save());
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") input.blur();
+      });
+    });
+
     const btn = document.createElement("button");
     btn.textContent = "+ Task";
     btn.onclick = () => {
       this.store.addTask(this.column.id, "New task");
     };
 
-    el.append(title, btn);
+    el.append(title);
 
     this.column.taskIds.forEach((taskId) => {
       const task = this.store.getTask(taskId);
       if (!!task) {
-        const view = new TaskView(task, this.store,this.column.id);
+        const view = new TaskView(task, this.store, this.column.id);
         el.append(view.render());
       }
     });
+
+    el.append(btn);
 
     return el;
   }
