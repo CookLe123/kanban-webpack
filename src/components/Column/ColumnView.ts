@@ -15,6 +15,65 @@ export class ColumnView {
     const title = document.createElement("h3");
     title.textContent = this.column.title;
 
+    const draggableZone = document.createElement("div");
+
+    draggableZone.textContent = "Pull me";
+    draggableZone.className = "draggableZone";
+
+    el.draggable = true;
+
+    el.addEventListener("drop", (e) => {
+      e.preventDefault();
+
+      const data = e.dataTransfer?.getData("text/plain");
+      if (!data) return;
+
+      const parsed = JSON.parse(data);
+
+      if (parsed.taskId) {
+        this.store.moveTask(parsed.taskId, parsed.fromColumnId, this.column.id);
+        return;
+      }
+
+      if (parsed.columnId) {
+        const rect = el.getBoundingClientRect();
+
+        const isRight = e.clientX > rect.left + rect.width / 2;
+
+        this.store.moveColumnRelative(parsed.columnId, this.column.id, isRight);
+      }
+    });
+
+    el.addEventListener("dragstart", (e) => {
+      if (!e.dataTransfer) return;
+
+      e.dataTransfer.setData(
+        "text/plain",
+        JSON.stringify({
+          columnId: this.column.id,
+        }),
+      );
+    });
+
+    el.addEventListener("dragover", (e) => {
+      e.preventDefault();
+
+      const rect = el.getBoundingClientRect();
+      const isRight = e.clientX > rect.left + rect.width / 2;
+
+      el.classList.remove("active-left", "active-right");
+
+      if (isRight) {
+        el.classList.add("active-right");
+      } else {
+        el.classList.add("active-left");
+      }
+    });
+
+    el.addEventListener("dragleave", () => {
+      el.classList.remove("active-left", "active-right");
+    });
+
     title.addEventListener("dblclick", () => {
       const input = document.createElement("input");
 

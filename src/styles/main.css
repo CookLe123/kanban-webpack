@@ -3,7 +3,8 @@ body {
 }
 
 .board {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(6, 250px);
   gap: 16px;
 }
 
@@ -11,6 +12,15 @@ body {
   background: #f4f4f4;
   padding: 12px;
   width: 250px;
+  transition: 0.2s;
+}
+
+.column.active-left {
+  border-left: 4px solid blue;
+}
+
+.column.active-right {
+  border-right: 4px solid blue;
 }
 
 .task {
@@ -18,4 +28,12 @@ body {
 
 .dragging {
   opacity: 0.5;
+}
+
+.draggableZone {
+  border: 1px black dotted;
+
+  .active {
+    opacity: 0.3;
+  }
 }

@@ -8,6 +8,8 @@ export class BoardStore {
   private columns = new Map<string, Column>();
   readonly events = new EventBus();
 
+  private columnOrder: string[] = [];
+
   constructor() {
     this.init();
   }
@@ -19,10 +21,12 @@ export class BoardStore {
       title: "To Do",
       taskIds: [],
     });
+
+    this.columnOrder.push(todoId);
   }
 
   getColumns(): Column[] {
-    return Array.from(this.columns.values());
+    return this.columnOrder.map((id) => this.columns.get(id)!);
   }
 
   getTask(id: string): Task | undefined {
@@ -73,6 +77,8 @@ export class BoardStore {
       title: "Edit me",
     });
 
+    this.columnOrder.push(newColumnId);
+
     this.events.emit();
   }
 
@@ -96,6 +102,34 @@ export class BoardStore {
 
     fromColumn.taskIds = fromColumn.taskIds.filter((id) => id !== taskId);
     toColumn.taskIds.push(taskId);
+
+    this.events.emit();
+  }
+
+  moveColumn(fromId: string, toId: string) {
+    const fromIndex = this.columnOrder.indexOf(fromId);
+    const toIndex = this.columnOrder.indexOf(toId);
+
+    if (fromIndex === -1 || toIndex === -1) return;
+
+    this.columnOrder.splice(fromIndex, 1);
+
+    this.columnOrder.splice(toIndex, 0, fromId);
+
+    this.events.emit();
+  }
+
+  moveColumnRelative(fromId: string, toId: string, after: boolean) {
+    const fromIndex = this.columnOrder.indexOf(fromId);
+    const toIndex = this.columnOrder.indexOf(toId);
+
+    if (fromIndex === -1 || toIndex === -1) return;
+
+    this.columnOrder.splice(fromIndex, 1);
+
+    const newIndex = after ? toIndex + 1 : toIndex;
+
+    this.columnOrder.splice(newIndex, 0, fromId);
 
     this.events.emit();
   }
