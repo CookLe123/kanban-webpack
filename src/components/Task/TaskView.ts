@@ -36,6 +36,23 @@ export class TaskView {
     });
     title.textContent = this.task.title;
 
+    element.draggable = true;
+
+    element.addEventListener("dragstart", (e) => {
+      if (!e.dataTransfer) return;
+
+      element.classList.add("dragging");
+
+      e.dataTransfer.setData(
+        "text/plain",
+        JSON.stringify({ taskId: this.task.id, fromColumnId: this.columnId }),
+      );
+    });
+
+    element.addEventListener("dragend", () => {
+      element.classList.remove("dragging");
+    });
+
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "x";
     deleteButton.addEventListener("click", () => {

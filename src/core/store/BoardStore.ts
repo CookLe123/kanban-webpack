@@ -85,4 +85,18 @@ export class BoardStore {
 
     this.events.emit();
   }
+
+  moveTask(taskId: string, fromColumnId: string, toColumnId: string) {
+    if (fromColumnId === toColumnId) return;
+
+    const fromColumn = this.columns.get(fromColumnId);
+    const toColumn = this.columns.get(toColumnId);
+
+    if (!fromColumn || !toColumn) return;
+
+    fromColumn.taskIds = fromColumn.taskIds.filter((id) => id !== taskId);
+    toColumn.taskIds.push(taskId);
+
+    this.events.emit();
+  }
 }

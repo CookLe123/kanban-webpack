@@ -25,7 +25,7 @@ export class ColumnView {
         const value = input.value;
 
         if (!!value) this.store.updateColumn(this.column.id, input.value);
-        
+
         input.replaceWith(title);
       };
 
@@ -41,6 +41,21 @@ export class ColumnView {
     btn.onclick = () => {
       this.store.addTask(this.column.id, "New task");
     };
+
+    el.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
+
+    el.addEventListener("drop", (e) => {
+      e.preventDefault();
+
+      const data = e.dataTransfer?.getData("text/plain");
+      if (!data) return;
+
+      const { taskId, fromColumnId } = JSON.parse(data);
+
+      this.store.moveTask(taskId, fromColumnId, this.column.id);
+    });
 
     el.append(title);
 
