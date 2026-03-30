@@ -31,9 +31,12 @@ body {
 }
 
 .draggableZone {
-  border: 1px black dotted;
+  cursor: grab;
+  padding: 4px;
+  background: #ddd;
+  margin-bottom: 8px;
+}
 
-  .active {
-    opacity: 0.3;
-  }
+.draggableZone:active {
+  cursor: grabbing;
 }

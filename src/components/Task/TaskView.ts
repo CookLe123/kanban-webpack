@@ -39,6 +39,8 @@ export class TaskView {
     element.draggable = true;
 
     element.addEventListener("dragstart", (e) => {
+      e.stopPropagation();
+
       if (!e.dataTransfer) return;
 
       element.classList.add("dragging");

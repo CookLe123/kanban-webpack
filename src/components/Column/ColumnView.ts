@@ -19,8 +19,7 @@ export class ColumnView {
 
     draggableZone.textContent = "Pull me";
     draggableZone.className = "draggableZone";
-
-    el.draggable = true;
+    draggableZone.draggable = true;
 
     el.addEventListener("drop", (e) => {
       e.preventDefault();
@@ -44,8 +43,12 @@ export class ColumnView {
       }
     });
 
-    el.addEventListener("dragstart", (e) => {
+    draggableZone.addEventListener("dragstart", (e) => {
+      e.stopPropagation();
+
       if (!e.dataTransfer) return;
+
+      e.dataTransfer?.setDragImage(el, 20, 20);
 
       e.dataTransfer.setData(
         "text/plain",
@@ -57,6 +60,11 @@ export class ColumnView {
 
     el.addEventListener("dragover", (e) => {
       e.preventDefault();
+
+      if (document.querySelector(".dragging")) {
+        e.preventDefault();
+        return;
+      }
 
       const rect = el.getBoundingClientRect();
       const isRight = e.clientX > rect.left + rect.width / 2;
@@ -116,7 +124,7 @@ export class ColumnView {
       this.store.moveTask(taskId, fromColumnId, this.column.id);
     });
 
-    el.append(title);
+    el.append(draggableZone, title);
 
     this.column.taskIds.forEach((taskId) => {
       const task = this.store.getTask(taskId);

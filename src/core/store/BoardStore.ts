@@ -106,19 +106,6 @@ export class BoardStore {
     this.events.emit();
   }
 
-  moveColumn(fromId: string, toId: string) {
-    const fromIndex = this.columnOrder.indexOf(fromId);
-    const toIndex = this.columnOrder.indexOf(toId);
-
-    if (fromIndex === -1 || toIndex === -1) return;
-
-    this.columnOrder.splice(fromIndex, 1);
-
-    this.columnOrder.splice(toIndex, 0, fromId);
-
-    this.events.emit();
-  }
-
   moveColumnRelative(fromId: string, toId: string, after: boolean) {
     const fromIndex = this.columnOrder.indexOf(fromId);
     const toIndex = this.columnOrder.indexOf(toId);
