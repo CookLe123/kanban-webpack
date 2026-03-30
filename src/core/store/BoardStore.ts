@@ -34,8 +34,9 @@ export class BoardStore {
   }
 
   addTask(columnId: string, title: string) {
+    const taskId = uuid();
     const task: Task = {
-      id: uuid(),
+      id: taskId,
       title,
       createdAt: Date.now(),
     };
@@ -74,7 +75,7 @@ export class BoardStore {
     this.columns.set(newColumnId, {
       id: newColumnId,
       taskIds: [],
-      title: "Edit me",
+      title: `Edit me ${this.columns.size + 1}`,
     });
 
     this.columnOrder.push(newColumnId);
@@ -99,6 +100,8 @@ export class BoardStore {
     const toColumn = this.columns.get(toColumnId);
 
     if (!fromColumn || !toColumn) return;
+
+    console.log(taskId);
 
     fromColumn.taskIds = fromColumn.taskIds.filter((id) => id !== taskId);
     toColumn.taskIds.push(taskId);

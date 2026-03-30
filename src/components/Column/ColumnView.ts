@@ -113,17 +113,6 @@ export class ColumnView {
       e.preventDefault();
     });
 
-    el.addEventListener("drop", (e) => {
-      e.preventDefault();
-
-      const data = e.dataTransfer?.getData("text/plain");
-      if (!data) return;
-
-      const { taskId, fromColumnId } = JSON.parse(data);
-
-      this.store.moveTask(taskId, fromColumnId, this.column.id);
-    });
-
     el.append(draggableZone, title);
 
     this.column.taskIds.forEach((taskId) => {
