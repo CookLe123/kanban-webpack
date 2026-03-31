@@ -1,6 +1,7 @@
 import { Column } from "../../core/models/Column";
 import { BoardStore } from "../../core/store/BoardStore";
 import { TaskView } from "../Task/TaskView";
+import { createElement } from "../../utils/dom";
 
 export class ColumnView {
   constructor(
@@ -9,16 +10,12 @@ export class ColumnView {
   ) {}
 
   render(): HTMLElement {
-    const el = document.createElement("div");
-    el.className = "column";
+    const el = createElement("div", "column");
 
-    const title = document.createElement("h3");
-    title.textContent = this.column.title;
+    const title = createElement("h3", "", this.column.title);
 
-    const draggableZone = document.createElement("div");
+    const draggableZone = createElement("div", "draggableZone", "Pull me");
 
-    draggableZone.textContent = "Pull me";
-    draggableZone.className = "draggableZone";
     draggableZone.draggable = true;
 
     el.addEventListener("drop", (e) => {
@@ -29,12 +26,12 @@ export class ColumnView {
 
       const parsed = JSON.parse(data);
 
-      if (parsed.taskId) {
+      if ("taskId" in parsed) {
         this.store.moveTask(parsed.taskId, parsed.fromColumnId, this.column.id);
         return;
       }
 
-      if (parsed.columnId) {
+      if ("columnId" in parsed) {
         const rect = el.getBoundingClientRect();
 
         const isRight = e.clientX > rect.left + rect.width / 2;
@@ -83,7 +80,7 @@ export class ColumnView {
     });
 
     title.addEventListener("dblclick", () => {
-      const input = document.createElement("input");
+      const input = createElement("input");
 
       title.replaceWith(input);
       input.focus();
@@ -103,15 +100,10 @@ export class ColumnView {
       });
     });
 
-    const btn = document.createElement("button");
-    btn.textContent = "+ Task";
+    const btn = createElement("button", "", "+ Task");
     btn.onclick = () => {
       this.store.addTask(this.column.id, "New task");
     };
-
-    el.addEventListener("dragover", (e) => {
-      e.preventDefault();
-    });
 
     el.append(draggableZone, title);
 

@@ -1,5 +1,6 @@
 import { BoardStore } from "../../core/store/BoardStore";
 import { ColumnView } from "../Column/ColumnView";
+import { createElement } from "../../utils/dom";
 
 export class BoardView {
   private root = document.createElement("div");
@@ -17,11 +18,10 @@ export class BoardView {
       this.root.append(view.render());
     });
 
-    const addColumn = document.createElement("button");
-    addColumn.textContent = "+ Column";
-    addColumn.addEventListener('click',()=>{
-      this.store.addColumn()
-    })
+    const addColumn = createElement("button", "", "+ Column");
+    addColumn.addEventListener("click", () => {
+      this.store.addColumn();
+    });
 
     this.root.append(addColumn);
 

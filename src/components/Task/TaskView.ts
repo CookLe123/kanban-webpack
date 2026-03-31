@@ -1,5 +1,6 @@
 import { BoardStore } from "../../core/store/BoardStore";
 import { Task } from "../../core/models/Task";
+import { createElement } from "../../utils/dom";
 
 export class TaskView {
   constructor(
@@ -9,12 +10,11 @@ export class TaskView {
   ) {}
 
   render(): HTMLElement {
-    const element = document.createElement("div");
-    element.className = "task";
+    const element = createElement("div", "task");
 
-    const title = document.createElement("span");
+    const title = createElement("span", "", this.task.title);
     title.addEventListener("dblclick", () => {
-      const input = document.createElement("input");
+      const input = createElement("input");
       input.value = this.task.title;
 
       title.replaceWith(input);
@@ -34,7 +34,6 @@ export class TaskView {
         if (e.key === "Enter") input.blur();
       });
     });
-    title.textContent = this.task.title;
 
     element.draggable = true;
 
@@ -55,8 +54,7 @@ export class TaskView {
       element.classList.remove("dragging");
     });
 
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "x";
+    const deleteButton = createElement("button", "", "x");
     deleteButton.addEventListener("click", () => {
       this.store.deleteTask(this.columnId, this.task.id);
     });
