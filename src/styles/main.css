@@ -3,7 +3,7 @@ body {
     system-ui,
     -apple-system,
     sans-serif;
-  background: #f6f7fb;
+  background: #fcf6bd;
   margin: 0;
 }
 
@@ -12,10 +12,11 @@ body {
   gap: 16px;
   padding: 16px;
   overflow-x: auto;
+  background: #fff07c;
 }
 
 .column {
-  background: #ebecf0;
+  background: #acadbc;
   padding: 12px;
   width: 260px;
   border-radius: 12px;
@@ -26,15 +27,15 @@ body {
 }
 
 .column:hover {
-  background: #e3e4e8;
+  background: #c6c7d2;
 }
 
 .column.active-left {
-  box-shadow: inset 4px 0 0 #3b82f6;
+  box-shadow: inset 4px 0 0 #f55a00;
 }
 
 .column.active-right {
-  box-shadow: inset -4px 0 0 #3b82f6;
+  box-shadow: inset -4px 0 0 #f55a00;
 }
 
 .column h3 {
@@ -47,16 +48,17 @@ body {
 .draggableZone {
   cursor: grab;
   padding: 6px;
-  background: #dcdfe4;
+  background: #c44900;
   border-radius: 8px;
   margin-bottom: 8px;
+  color: white;
   text-align: center;
   font-size: 12px;
   transition: background 0.2s;
 }
 
 .draggableZone:hover {
-  background: #cfd3da;
+  background: #ff8b47;
 }
 
 .draggableZone:active {
@@ -104,14 +106,14 @@ button {
   padding: 8px;
   border-radius: 8px;
   border: none;
-  background: #3b82f6;
+  background: #0d1f2d;
   color: white;
   cursor: pointer;
   transition: 0.2s;
 }
 
 button:hover {
-  background: #2563eb;
+  background: #25587e;
 }
 
 button:active {
