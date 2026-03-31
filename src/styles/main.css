@@ -10,16 +10,16 @@ body {
 .board {
   display: flex;
   gap: 16px;
-  padding: 16px;
+  padding: 32px;
   overflow-x: auto;
   background: #fff07c;
 }
 
 .column {
   background: #acadbc;
-  padding: 12px;
+  padding: 16px;
   width: 260px;
-  border-radius: 12px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   max-height: 90vh;
@@ -51,9 +51,13 @@ body {
   background: #c44900;
   border-radius: 8px;
   margin-bottom: 8px;
+  width: 50px;
+  height: 40px;
   color: white;
+  align-content: center;
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: bolder;
   transition: background 0.2s;
 }
 
@@ -63,6 +67,9 @@ body {
 
 .draggableZone:active {
   cursor: grabbing;
+  opacity: 0.4;
+  transform: rotate(2deg) scale(1.03);
+  transition: 0.8s step-start;
 }
 
 .task {
@@ -79,13 +86,15 @@ body {
 }
 
 .task:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2.5px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.4s ease;
 }
 
 .task.dragging {
   opacity: 0.4;
   transform: rotate(2deg) scale(1.03);
+  transition: 0.8s step-start;
 }
 
 .task button {
