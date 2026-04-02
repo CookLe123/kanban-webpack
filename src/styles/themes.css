@@ -1,0 +1,93 @@
+:root {
+  --bg-main: #fcf6bd;
+  --bg-board: #fff07c;
+  --bg-column: #acadbc;
+  --bg-column-hover: #c6c7d2;
+  --bg-task: #ffffff;
+
+  --accent: #c44900;
+  --accent-hover: #ff8b47;
+
+  --text-main: #0d1f2d;
+  --text-light: #ffdbdb;
+  --danger: #e11d48;
+
+  --shadow: rgba(0, 0, 0, 0.08);
+  --shadow-hover: rgba(0, 0, 0, 0.1);
+  --active-border: #f55a00;
+}
+
+[data-theme="golden"] {
+  --bg-main: #ffe169;
+  --bg-board: #fad643;
+  --bg-column: #926c15;
+  --bg-column-hover: #b69121; /*https://coolors.co/palette/ffe169-fad643-edc531-dbb42c-c9a227-b69121-a47e1b-926c15-805b10-76520e*/
+  --bg-task: #dbb42c;
+
+  --accent: #805b10;
+  --accent-hover: #76520e;
+
+  --text-main: #0d1f2d;
+  --text-light: #ffdbdb;
+  --danger: #ff5c5c;
+}
+
+[data-theme="blue"] {
+  --bg-main: #caf0f8;
+  --bg-board: #0077b6;
+  --bg-column: #00b4d8; /*https://coolors.co/palette/03045e-023e8a-0077b6-0096c7-00b4d8-48cae4-90e0ef-ade8f4-caf0f8*/
+  --bg-column-hover: #90e0ef;
+  --bg-task: #0077b6;
+
+  --accent: #023e8a;
+  --accent-hover: #03045e;
+
+  --text-main: #0d1f2d;
+  --text-light: #ffdbdb;
+  --danger: #ff5c5c;
+}
+
+[data-theme="olive"] {
+  --bg-main: #fefae0;
+  --bg-board: #283618;
+  --bg-column: #606c38;
+  --bg-column-hover: #606c38; /*https://coolors.co/palette/606c38-283618-fefae0-dda15e-bc6c25*/
+  --bg-task: #283618;
+
+  --accent: #dda15e;
+  --accent-hover: #bc6c25;
+
+  --text-main: #0d1f2d;
+  --text-light: #ffdbdb;
+  --danger: #ff5c5c;
+}
+
+[data-theme="orange"] {
+  --bg-main: #ffb600;
+  --bg-board: #ff9100;
+  --bg-column: #ff6d00;
+  --bg-column-hover: #ff8500; /*https://coolors.co/palette/ff4800-ff5400-ff6000-ff6d00-ff7900-ff8500-ff9100-ff9e00-ffaa00-ffb600*/
+  --bg-task: #ff4800;
+
+  --accent: #ff9e00;
+  --accent-hover: #ffaa00;
+
+  --text-main: #0d1f2d;
+  --text-light: #ffdbdb;
+  --danger: #ff5c5c;
+}
+
+[data-theme="green"] {
+  --bg-main: #ffff3f;
+  --bg-board: #55a630;
+  --bg-column: #aacc00;
+  --bg-column-hover: #bfd200; /*https://coolors.co/palette/007f5f-2b9348-55a630-80b918-aacc00-bfd200-d4d700-dddf00-eeef20-ffff3f*/
+  --bg-task: #2b9348;
+
+  --accent: #dddf00;
+  --accent-hover: #eeef20;
+
+  --text-main: #0d1f2d;
+  --text-light: #ffdbdb;
+  --danger: #ff5c5c;
+}

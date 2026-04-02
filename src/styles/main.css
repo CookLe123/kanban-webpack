@@ -3,8 +3,9 @@ body {
     system-ui,
     -apple-system,
     sans-serif;
-  background: #fcf6bd;
+  background: var(--bg-main);
   margin: 0;
+  display: flex;
 }
 
 .board {
@@ -12,11 +13,17 @@ body {
   gap: 16px;
   padding: 32px;
   overflow-x: auto;
-  background: #fff07c;
+  background: var(--bg-board);
+  width: 95vw;
+}
+
+.underBoardZone {
+  background: var(--bg-main);
+  height: 60vh;
 }
 
 .column {
-  background: #acadbc;
+  background: var(--bg-column);
   padding: 16px;
   width: 260px;
   border-radius: 20px;
@@ -24,18 +31,20 @@ body {
   flex-direction: column;
   max-height: 90vh;
   transition: all 0.2s ease;
+  min-width: fit-content;
 }
 
 .column:hover {
-  background: #c6c7d2;
+  background: var(--bg-column-hover);
+  opacity: 0.9;
 }
 
 .column.active-left {
-  box-shadow: inset 4px 0 0 #f55a00;
+  box-shadow: inset 12px 0 0 var(--active-border);
 }
 
 .column.active-right {
-  box-shadow: inset -4px 0 0 #f55a00;
+  box-shadow: inset -12px 0 0 var(--active-border);
 }
 
 .column h3 {
@@ -48,7 +57,7 @@ body {
 .draggableZone {
   cursor: grab;
   padding: 6px;
-  background: #c44900;
+  background: var(--accent);
   border-radius: 8px;
   margin-bottom: 8px;
   width: 50px;
@@ -62,7 +71,7 @@ body {
 }
 
 .draggableZone:hover {
-  background: #ff8b47;
+  background: var(--accent-hover);
 }
 
 .draggableZone:active {
@@ -73,11 +82,11 @@ body {
 }
 
 .task {
-  background: white;
+  background: var(--bg-task);
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 8px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 2px var(--shadow);
   cursor: grab;
   transition: all 0.15s ease;
   display: flex;
@@ -87,7 +96,7 @@ body {
 
 .task:hover {
   transform: translateY(-2.5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px var(--shadow-hover);
   transition: 0.4s ease;
 }
 
@@ -107,7 +116,7 @@ body {
 }
 
 .task button:hover {
-  color: #e11d48;
+  color: var(--danger);
 }
 
 button {
@@ -115,14 +124,14 @@ button {
   padding: 8px;
   border-radius: 8px;
   border: none;
-  background: #0d1f2d;
+  background: var(--text-main);
   color: white;
   cursor: pointer;
   transition: 0.2s;
 }
 
 button:hover {
-  background: #25587e;
+  background: var(--accent);
 }
 
 button:active {
@@ -132,4 +141,53 @@ button:active {
 .dragging-column {
   opacity: 0.5;
   transform: scale(0.98);
+}
+
+.adminPanel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 260px;
+  height: 100vh;
+  background: var(--bg-column);
+  box-shadow: -4px 0 10px var(--shadow);
+  padding: 16px;
+  z-index: 1000;
+
+  transform: translateX(100%);
+  opacity: 0.8;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+}
+
+.adminPanel.open {
+  transform: translateX(0);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+  opacity: 1;
+}
+
+.adminToggle {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: var(--accent);
+  color: white;
+  border-radius: 8px 0 0 8px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1001;
+  font-weight: bold;
+
+  transition:
+    right 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.adminPanel.open + .adminToggle {
+  right: 260px;
 }

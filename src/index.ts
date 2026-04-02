@@ -1,10 +1,11 @@
-import './styles/main.css';
-import { BoardStore } from './core/store/BoardStore';
-import { BoardView } from './components/Board/BoardView';
+import "./styles/main.css";
+import "./styles/themes.css";
+import { BoardStore } from "./core/store/BoardStore";
+import { BoardView } from "./components/Board/BoardView";
 
-const root = document.getElementById('app');
+const root = document.getElementById("app");
 if (!root) {
-    throw new Error('Root element not found');
+  throw new Error("Root element not found");
 }
 
 const store = new BoardStore();
