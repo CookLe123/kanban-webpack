@@ -16,6 +16,7 @@ body {
   background: var(--bg-board);
   width: 95vw;
   scrollbar-width: thin;
+  margin-left: 20px;
   scrollbar-color: var(--scrollbar) transparent;
 }
 
@@ -80,7 +81,6 @@ body {
   padding: 6px;
   background: var(--accent);
   border-radius: 8px;
-  margin-bottom: 8px;
   width: 50px;
   height: 40px;
   color: white;
@@ -134,6 +134,7 @@ body {
   color: #888;
   font-size: 14px;
   transition: 0.2s;
+  justify-content: center;
 }
 
 .task button:hover {
@@ -141,7 +142,6 @@ body {
 }
 
 button {
-  margin-top: 8px;
   padding: 8px;
   border-radius: 8px;
   border: none;
@@ -211,4 +211,62 @@ button:active {
 
 .adminPanel.open + .adminToggle {
   right: 260px;
+}
+
+.toolbarZone {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.deleteColumnBtn {
+  background: transparent;
+  color: var(--accent);
+  font-size: 16px;
+  padding: 4px 8px;
+  border-radius: 6px;
+
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.column:hover .deleteColumnBtn {
+  opacity: 1;
+}
+
+.deleteColumnBtn:hover {
+  color: var(--danger);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.confirmOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.confirmModal {
+  background: var(--bg-column);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px var(--shadow);
+  min-width: 250px;
+}
+
+.confirmActions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  justify-content: flex-end;
 }

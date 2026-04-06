@@ -1,7 +1,7 @@
 import { Column } from "../../core/models/Column";
 import { BoardStore } from "../../core/store/BoardStore";
 import { TaskView } from "../Task/TaskView";
-import { createElement } from "../../utils/dom";
+import { createElement, showConfirm } from "../../utils/dom";
 
 export class ColumnView {
   constructor(
@@ -11,12 +11,24 @@ export class ColumnView {
 
   render(): HTMLElement {
     const el = createElement("div", "column");
+    const toolbarZone = createElement("div", "toolbarZone");
 
     const title = createElement("h3", "", this.column.title);
 
     const draggableZone = createElement("div", "draggableZone", "Pull me");
+    const columnHeader = createElement("div", "columnHeader");
 
     draggableZone.draggable = true;
+
+    const deleteBtn = createElement("button", "deleteColumnBtn", "✕");
+
+    deleteBtn.onclick = async () => {
+      const confirmed = await showConfirm("Delete this column?");
+      if (confirmed) {
+        this.store.removeColumn(this.column.id);
+      }
+    };
+    columnHeader.append(deleteBtn);
 
     el.addEventListener("drop", (e) => {
       e.preventDefault();
@@ -100,12 +112,14 @@ export class ColumnView {
       });
     });
 
-    const btn = createElement("button", "", "+ Task");
-    btn.onclick = () => {
+    const addTaskBtn = createElement("button", "", "+ Task");
+    addTaskBtn.onclick = () => {
       this.store.addTask(this.column.id, "New task");
     };
 
-    el.append(draggableZone, title);
+    toolbarZone.append(draggableZone, addTaskBtn);
+
+    el.append(columnHeader, toolbarZone, title);
 
     this.column.taskIds.forEach((taskId) => {
       const task = this.store.getTask(taskId);
@@ -114,8 +128,6 @@ export class ColumnView {
         el.append(view.render());
       }
     });
-
-    el.append(btn);
 
     return el;
   }

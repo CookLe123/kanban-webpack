@@ -123,4 +123,12 @@ export class BoardStore {
 
     this.events.emit();
   }
+
+  removeColumn(columnId: string) {
+    this.columns.delete(columnId);
+
+    this.columnOrder = this.columnOrder.filter((id) => id !== columnId);
+
+    this.events.emit();
+  }
 }
