@@ -15,6 +15,27 @@ body {
   overflow-x: auto;
   background: var(--bg-board);
   width: 95vw;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar) transparent;
+}
+
+.board::-webkit-scrollbar {
+  height: 10px;
+}
+
+.board::-webkit-scrollbar-track {
+  background: var(--bg-board);
+  border-radius: 10px;
+}
+
+.board::-webkit-scrollbar-thumb {
+  background: var(--scrollbar);
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.board::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
 }
 
 .underBoardZone {

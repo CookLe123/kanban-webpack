@@ -15,6 +15,7 @@
   --shadow: rgba(0, 0, 0, 0.08);
   --shadow-hover: rgba(0, 0, 0, 0.1);
   --active-border: #f55a00;
+  --scrollbar: #acadbc;
 }
 
 [data-theme="golden"] {
@@ -30,6 +31,7 @@
   --text-main: #0d1f2d;
   --text-light: #ffdbdb;
   --danger: #ff5c5c;
+  --scrollbar: #926c15;
 }
 
 [data-theme="blue"] {
@@ -45,6 +47,7 @@
   --text-main: #0d1f2d;
   --text-light: #ffdbdb;
   --danger: #ff5c5c;
+  --scrollbar: #00b4d8;
 }
 
 [data-theme="olive"] {
@@ -60,6 +63,7 @@
   --text-main: #0d1f2d;
   --text-light: #ffdbdb;
   --danger: #ff5c5c;
+  --scrollbar: #606c38;
 }
 
 [data-theme="orange"] {
@@ -75,6 +79,7 @@
   --text-main: #0d1f2d;
   --text-light: #ffdbdb;
   --danger: #ff5c5c;
+  --scrollbar: #ff6d00;
 }
 
 [data-theme="green"] {
@@ -90,4 +95,5 @@
   --text-main: #0d1f2d;
   --text-light: #ffdbdb;
   --danger: #ff5c5c;
+  --scrollbar: #aacc00;
 }
