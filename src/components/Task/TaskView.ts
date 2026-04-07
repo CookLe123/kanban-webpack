@@ -54,12 +54,14 @@ export class TaskView {
       element.classList.remove("dragging");
     });
 
+    const editButton = createElement("button", "editButton", "✏️");
+    editButton.addEventListener("click", () => {});
     const deleteButton = createElement("button", "", "x");
     deleteButton.addEventListener("click", () => {
       this.store.deleteTask(this.columnId, this.task.id);
     });
 
-    element.append(title, deleteButton);
+    element.append(title, editButton, deleteButton);
     return element;
   }
 }
