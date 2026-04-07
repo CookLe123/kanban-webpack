@@ -1,6 +1,6 @@
 import { BoardStore } from "../../core/store/BoardStore";
 import { ColumnView } from "../Column/ColumnView";
-import { createElement } from "../../utils/dom";
+import { createElement, enableDragScroll } from "../../utils/dom";
 
 export class BoardView {
   private root = document.createElement("div");
@@ -13,24 +13,64 @@ export class BoardView {
   render(): HTMLElement {
     this.root.innerHTML = "";
 
-    const boardZone = createElement("div", "board");
+    const boardRows = createElement("div", "boardRows");
+    const rows = this.store.getRows();
 
-    const underBoardZone = createElement("div", "underBoardZone");
+    rows.forEach((row, rowIndex) => {
+      const boardZone = createElement("div", "boardRow");
 
-    this.store.getColumns().forEach((column) => {
-      const view = new ColumnView(column, this.store);
-      boardZone.append(view.render());
+      enableDragScroll(boardZone);
+
+      row.forEach((column) => {
+        const view = new ColumnView(column, this.store);
+        boardZone.append(view.render());
+      });
+
+      const addColumn = createElement("button", "", "+ Column");
+      addColumn.addEventListener("click", () => {
+        this.store.addColumn(rowIndex);
+      });
+
+      boardZone.append(addColumn);
+      boardRows.append(boardZone);
     });
 
-    const addColumn = createElement("button", "", "+ Column");
-    addColumn.addEventListener("click", () => {
-      this.store.addColumn();
+    const underBoardZone = createElement(
+      "div",
+      "underBoardZone",
+      "Drop column here to create a new row",
+    );
+
+    underBoardZone.addEventListener("dragover", (e) => {
+      if (document.body.dataset.dragType !== "column") return;
+
+      e.preventDefault();
+      underBoardZone.classList.add("active");
+    });
+
+    underBoardZone.addEventListener("dragleave", () => {
+      underBoardZone.classList.remove("active");
+    });
+
+    underBoardZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      underBoardZone.classList.remove("active");
+
+      const data = e.dataTransfer?.getData("text/plain");
+      if (!data) return;
+
+      const parsed = JSON.parse(data);
+
+      if ("columnId" in parsed) {
+        this.store.moveColumnToNewRow(parsed.columnId);
+      }
     });
 
     const panel = createElement("div", "adminPanel");
     if (this.isPanelOpen) panel.classList.add("open");
 
     panel.append(createElement("h3", "", "Themes"));
+
     ["golden", "blue", "olive", "orange", "green"].forEach((theme) => {
       const themeButton = createElement("button", "", theme);
       themeButton.addEventListener("click", () => {
@@ -45,16 +85,14 @@ export class BoardView {
       this.isPanelOpen ? ">" : "<",
     );
 
-    toggle.addEventListener("click", (e) => {
+    toggle.addEventListener("click", () => {
       this.isPanelOpen = !this.isPanelOpen;
 
       panel.classList.toggle("open", this.isPanelOpen);
       toggle.classList.toggle("open", this.isPanelOpen);
     });
 
-    boardZone.append(addColumn);
-
-    this.root.append(boardZone, underBoardZone, panel, toggle);
+    this.root.append(boardRows, underBoardZone, panel, toggle);
 
     return this.root;
   }

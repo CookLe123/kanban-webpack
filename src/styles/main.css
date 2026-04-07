@@ -6,42 +6,75 @@ body {
   background: var(--bg-main);
   margin: 0;
   display: flex;
+  overflow-x: hidden;
 }
 
-.board {
+.boardRows {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 95vw;
+  margin-left: 20px;
+  padding-top: 20px;
+}
+
+.boardRow {
   display: flex;
   gap: 16px;
   padding: 32px;
   overflow-x: auto;
   background: var(--bg-board);
-  width: 95vw;
   scrollbar-width: thin;
-  margin-left: 20px;
   scrollbar-color: var(--scrollbar) transparent;
+  border-radius: 20px;
+  user-select: none;
+  cursor: grab;
 }
 
-.board::-webkit-scrollbar {
+.boardRow.grab-scrolling {
+  cursor: grabbing;
+}
+
+.boardRow::-webkit-scrollbar {
   height: 10px;
 }
 
-.board::-webkit-scrollbar-track {
+.boardRow::-webkit-scrollbar-track {
   background: var(--bg-board);
   border-radius: 10px;
 }
 
-.board::-webkit-scrollbar-thumb {
+.boardRow::-webkit-scrollbar-thumb {
   background: var(--scrollbar);
   border-radius: 10px;
   transition: background 0.2s;
 }
 
-.board::-webkit-scrollbar-thumb:hover {
+.boardRow::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
 }
 
 .underBoardZone {
+  margin: 0 20px 20px 20px;
+  min-height: 120px;
+  border: 2px dashed transparent;
+  border-radius: 20px;
   background: var(--bg-main);
-  height: 60vh;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    opacity 0.2s ease;
+  opacity: 0.7;
+}
+
+.underBoardZone.active {
+  border-color: var(--accent);
+  background: var(--bg-board);
+  opacity: 1;
 }
 
 .column {

@@ -28,6 +28,7 @@ export class ColumnView {
         this.store.removeColumn(this.column.id);
       }
     };
+
     columnHeader.append(deleteBtn);
 
     el.addEventListener("drop", (e) => {
@@ -45,7 +46,6 @@ export class ColumnView {
 
       if ("columnId" in parsed) {
         const rect = el.getBoundingClientRect();
-
         const isRight = e.clientX > rect.left + rect.width / 2;
 
         this.store.moveColumnRelative(parsed.columnId, this.column.id, isRight);
@@ -57,14 +57,24 @@ export class ColumnView {
 
       if (!e.dataTransfer) return;
 
-      e.dataTransfer?.setDragImage(el, 20, 20);
+      document.body.dataset.dragType = "column";
+      el.classList.add("dragging-column");
 
+      e.dataTransfer.setDragImage(el, 20, 20);
       e.dataTransfer.setData(
         "text/plain",
         JSON.stringify({
           columnId: this.column.id,
         }),
       );
+    });
+
+    draggableZone.addEventListener("dragend", () => {
+      document.body.dataset.dragType = "";
+      el.classList.remove("dragging-column");
+      document
+        .querySelectorAll(".underBoardZone.active")
+        .forEach((node) => node.classList.remove("active"));
     });
 
     el.addEventListener("dragover", (e) => {
@@ -96,16 +106,17 @@ export class ColumnView {
 
       title.replaceWith(input);
       input.focus();
+      input.value = this.column.title;
 
       const save = () => {
-        const value = input.value;
+        const value = input.value.trim();
 
-        if (!!value) this.store.updateColumn(this.column.id, input.value);
+        if (value) this.store.updateColumn(this.column.id, value);
 
         input.replaceWith(title);
       };
 
-      input.addEventListener("blur", () => save());
+      input.addEventListener("blur", save);
 
       input.addEventListener("keydown", (e) => {
         if (e.key === "Enter") input.blur();
@@ -123,7 +134,7 @@ export class ColumnView {
 
     this.column.taskIds.forEach((taskId) => {
       const task = this.store.getTask(taskId);
-      if (!!task) {
+      if (task) {
         const view = new TaskView(task, this.store, this.column.id);
         el.append(view.render());
       }
